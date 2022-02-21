@@ -3,8 +3,8 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {useSelector} from 'react-redux';
 
 const DateFilter = props => {
-  const [monthChecked, setMonthChecked] = useState(true);
-  const [yearChecked, setYearChecked] = useState(true);
+  const [monthChecked, setMonthChecked] = useState(false);
+  const [yearChecked, setYearChecked] = useState(false);
   const [month, setMonth] = useState();
   const [year, setYear] = useState();
 

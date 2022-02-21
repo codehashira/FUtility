@@ -1,16 +1,16 @@
-import React from 'react';
+import React, {useCallback, useMemo, useRef} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useSelector} from 'react-redux';
 
-const Header = () => {
+const Header = props => {
   const income = useSelector(
     state => state.transactions.transactions[0].income,
   );
   const expenses = useSelector(
     state => state.transactions.transactions[0].expenses,
   );
-  console.log(income);
-  console.log(expenses);
+
   return (
     <View style={Styles.headerContainer}>
       <View style={Styles.incomeContainer}>
@@ -48,6 +48,11 @@ const Header = () => {
           }}>
           ₹ {expenses}
         </Text>
+      </View>
+      <View>
+        <TouchableOpacity onPress={props.onPress} activeOpacity={0.7}>
+          <Text>⚙️</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

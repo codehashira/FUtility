@@ -12,7 +12,9 @@ import * as Animatable from 'react-native-animatable';
 
 const TransactionList = () => {
   const data = useSelector(state => state.transactions.transactions[0].data);
-  const renderItem = ({item}) => <Transaction item={item} />;
+  const renderItem = ({item, index}) => (
+    <Transaction item={item} index={index} />
+  );
 
   return (
     <View style={Styles.transactionContainer}>

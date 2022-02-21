@@ -32,15 +32,15 @@ const TransactionSectionList = () => {
   );
 
   yearlyTransactions.forEach(item => {
-    yearlySortedTransaction[month.indexOf(item.date.slice(7, 12).trim())] = {
-      title: item.date.slice(7, 12).trim(),
+    yearlySortedTransaction[month.indexOf(item.date.slice(0, 4).trim())] = {
+      title: item.date.slice(0, 4).trim(),
       data: [],
     };
   });
 
   yearlyTransactions.forEach(item => {
     yearlySortedTransaction[
-      month.indexOf(item.date.slice(7, 12).trim())
+      month.indexOf(item.date.slice(0, 4).trim())
     ].data.push(item);
   });
 
@@ -50,7 +50,7 @@ const TransactionSectionList = () => {
     <SectionList
       sections={yearlySortedTransaction}
       keyExtractor={(item, index) => item + index}
-      renderItem={({item}) => <Transaction item={item} />}
+      renderItem={({item, index}) => <Transaction item={item} index={index} />}
       renderSectionHeader={({section: {title, income, expense}}) => (
         <Animatable.View
           animation={'fadeIn'}
@@ -69,7 +69,7 @@ const TransactionSectionList = () => {
                 fontFamily: 'WorkSans-Medium',
                 fontSize: 16,
                 color: 'black',
-                marginVertical: 12,
+                marginTop: 5,
               }}>
               {title}
             </Text>
@@ -94,8 +94,20 @@ const TransactionSectionList = () => {
         </Animatable.View>
       )}
       ListEmptyComponent={
-        <View>
-          <Text>Empty! Try Adding Transactions.</Text>
+        <View
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+          }}>
+          <Animatable.Text
+            animation={'flash'}
+            easing="ease-out"
+            iterationCount={1}
+            delay={300}
+            style={{color: '#000', fontFamily: 'WorkSans-Regular'}}>
+            {' '}
+            Empty! Try Adding Transactions.
+          </Animatable.Text>
         </View>
       }
     />
@@ -108,7 +120,7 @@ const styles = StyleSheet.create({
   item: {
     backgroundColor: '#f9c2ff',
     padding: 20,
-    marginVertical: 8,
+    marginVertical: 4,
   },
   header: {
     fontSize: 32,

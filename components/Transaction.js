@@ -15,6 +15,7 @@ import {
 import * as Animatable from 'react-native-animatable';
 
 const Transaction = props => {
+  console.log(props.index);
   const [pressCount, setPressCount] = useState(1);
   const dispatch = useDispatch();
 
@@ -27,7 +28,7 @@ const Transaction = props => {
       animation={'fadeIn'}
       duration={500}
       easing={'ease-in-out'}
-      delay={200}>
+      delay={parseInt(props.index) * 100}>
       <TouchableOpacity
         style={Styles.transactionContainer}
         onPress={() => {

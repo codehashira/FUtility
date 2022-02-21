@@ -13,8 +13,9 @@ import {nanoid} from '@reduxjs/toolkit';
 import {
   transactionAdded,
   transactionEdited,
-  transactionEditModeOn,
 } from '../features/transactionsSlice';
+
+import moment from 'moment';
 
 const AddTransaction = () => {
   const [description, setDescription] = useState('');
@@ -42,6 +43,8 @@ const AddTransaction = () => {
       setTimeout(() => {
         setEditFlash(false);
       }, 500);
+    } else {
+      return;
     }
   }, [editmode]);
 
@@ -60,7 +63,7 @@ const AddTransaction = () => {
           id: nanoid(),
           description: description,
           amount: amount,
-          date: new Date().toUTCString(),
+          date: moment().format('lll'),
         }),
       );
 

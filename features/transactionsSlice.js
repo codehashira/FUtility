@@ -87,6 +87,15 @@ const transactionsSlice = createSlice({
       );
       state.transactions[0].data = newTransactions;
     },
+    incomeUpdated(state, action) {
+      const {replace, income} = action.payload;
+      if (!replace) {
+        state.transactions[0].income = parseInt(income);
+      } else {
+        state.transactions[0].income += parseInt(income);
+      }
+      console.log(state.transactions[0].income);
+    },
   },
 });
 
@@ -95,6 +104,7 @@ export const {
   transactionEditModeOn,
   transactionEdited,
   transactionDeleted,
+  incomeUpdated,
 } = transactionsSlice.actions;
 
 export default transactionsSlice.reducer;
