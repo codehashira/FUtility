@@ -15,6 +15,8 @@ const DateFilter = props => {
     state => state.transactions.transactions[0].currentYear,
   );
 
+  console.log(`${month} ${year}`);
+
   useEffect(() => {
     setMonth(current_month);
     setYear(current_year);
@@ -27,6 +29,8 @@ const DateFilter = props => {
           style={Styles.monthCheckBox}
           activeOpacity={0.8}
           onPress={() => {
+            if (!yearChecked) return;
+            props.onListTypeChange(monthChecked);
             setMonthChecked(!monthChecked);
           }}>
           {monthChecked && (
@@ -39,7 +43,15 @@ const DateFilter = props => {
               }}></View>
           )}
         </TouchableOpacity>
-        <TouchableOpacity style={Styles.monthSelect} activeOpacity={0.6}>
+        <TouchableOpacity
+          style={Styles.monthSelect}
+          activeOpacity={0.6}
+          onPress={() => {
+            props.onIncomeComponentHide(false);
+            props.onMonthSelect(true);
+            props.onYearSelect(false);
+            props.onPresentBottomSheetModal();
+          }}>
           <Text style={{fontFamily: 'WorkSans-Medium'}}>{month}</Text>
         </TouchableOpacity>
       </View>
@@ -49,8 +61,9 @@ const DateFilter = props => {
           style={Styles.monthCheckBox}
           activeOpacity={0.8}
           onPress={() => {
+            if (monthChecked) return;
             setYearChecked(!yearChecked);
-            props.onFilter(!props.filterValue);
+            props.onListTypeChange(!yearChecked);
           }}>
           {yearChecked && (
             <View
@@ -62,7 +75,15 @@ const DateFilter = props => {
               }}></View>
           )}
         </TouchableOpacity>
-        <TouchableOpacity style={Styles.monthSelect} activeOpacity={0.6}>
+        <TouchableOpacity
+          style={Styles.monthSelect}
+          activeOpacity={0.6}
+          onPress={() => {
+            props.onIncomeComponentHide(false);
+            props.onMonthSelect(false);
+            props.onYearSelect(true);
+            props.onPresentBottomSheetModal();
+          }}>
           <Text style={{fontFamily: 'WorkSans-Medium'}}>{year}</Text>
         </TouchableOpacity>
       </View>

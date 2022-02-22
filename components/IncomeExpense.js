@@ -12,6 +12,8 @@ const IncomeExpense = props => {
   const [replace, setReplace] = useState(false);
 
   const handleIncomeSave = () => {
+    if (newIncome === NaN || newIncome === undefined || newIncome === '')
+      return;
     dispatch(
       incomeUpdated({
         replace: replace,

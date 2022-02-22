@@ -22,17 +22,30 @@ import store from './app/store';
 import {BottomSheetModal, BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import IncomeExpense from './components/IncomeExpense';
+import GridSelector from './components/GridSelector';
 
 let persistor = persistStore(store);
 
 export default App = () => {
-  const [filtered, setFiltered] = useState(false);
+  //state to know which list to rendered
+  const [isSectionList, setIsSectionList] = useState(false);
+
+  //
+  const [isYearModalVisible, setIsYearModalVisible] = useState(false);
+  const [isMonthModalVisible, setIsMonthModalVisible] = useState(false);
+  const [isIncomeModalVisible, setIsIncomeModalVisible] = useState(true);
+
+  useState(() => {
+    if (isMonthModalVisible || isYearModalVisible) {
+      setIsIncomeModalVisible(false);
+    }
+  }, [isYearModalVisible, isMonthModalVisible, isIncomeModalVisible]);
 
   // ref
   const bottomSheetModalRef = useRef(null);
 
   // variables
-  const snapPoints = useMemo(() => ['10%', '35%'], []);
+  const snapPoints = useMemo(() => ['25%', '25%'], []);
 
   // callbacks
   const handlePresentModalPress = useCallback(() => {
@@ -46,6 +59,23 @@ export default App = () => {
   const handleSheetChanges = useCallback((index: number) => {
     console.log('handleSheetChanges', index);
   }, []);
+
+  const values = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+
+  const yearValues = ['2020', '2021', '2022'];
 
   return (
     <Provider store={store}>
@@ -61,9 +91,25 @@ export default App = () => {
                 }}>
                 08 Feb 2022
               </Text>
-              <Header onPress={handlePresentModalPress} />
-              <DateFilter onFilter={setFiltered} filterValue={filtered} />
-              {filtered ? <TransactionSectionList /> : <TransactionList />}
+              <Header
+                onPress={() => {
+                  setIsMonthModalVisible(false);
+                  setIsYearModalVisible(false);
+                  if (!isIncomeModalVisible) {
+                    setIsIncomeModalVisible(true);
+                  }
+                  handlePresentModalPress();
+                }}
+              />
+              <DateFilter
+                onListTypeChange={setIsSectionList}
+                isSectionList={isSectionList}
+                onMonthSelect={setIsMonthModalVisible}
+                onYearSelect={setIsYearModalVisible}
+                onIncomeComponentHide={setIsIncomeModalVisible}
+                onPresentBottomSheetModal={handlePresentModalPress}
+              />
+              {isSectionList ? <TransactionSectionList /> : <TransactionList />}
               <AddTransaction />
               {/* Modal */}
               <BottomSheetModal
@@ -74,7 +120,24 @@ export default App = () => {
                 backgroundStyle={{backgroundColor: '#f2f2f2'}}>
                 <View style={Styles.contentContainer}>
                   {/* Form */}
-                  <IncomeExpense onClose={handleCloseModalPress} />
+
+                  {isIncomeModalVisible && (
+                    <IncomeExpense onClose={handleCloseModalPress} />
+                  )}
+
+                  {isYearModalVisible && (
+                    <GridSelector
+                      data={yearValues}
+                      onSelectCloseModal={handleCloseModalPress}
+                    />
+                  )}
+
+                  {isMonthModalVisible && (
+                    <GridSelector
+                      data={values}
+                      onSelectCloseModal={handleCloseModalPress}
+                    />
+                  )}
                 </View>
               </BottomSheetModal>
             </BottomSheetModalProvider>

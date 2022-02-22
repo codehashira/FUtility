@@ -1,0 +1,1 @@
+[X] - on month and year select update global variables and render list based on selection
