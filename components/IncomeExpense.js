@@ -30,9 +30,12 @@ const IncomeExpense = props => {
           justifyContent: 'space-between',
           alignItems: 'center',
           flexDirection: 'row',
+          marginBottom: 10,
         }}>
         <TouchableOpacity onPress={props.onClose}>
-          <Text style={{fontSize: 18}}> x </Text>
+          <Text style={{fontFamily: 'WorkSans-Regular', fontSize: 12}}>
+            CLOSE
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
@@ -51,8 +54,8 @@ const IncomeExpense = props => {
           </Text>
         </TouchableOpacity>
       </View>
-      <View style={{marginTop: 10}}>
-        <View style={{display: 'flex', flexDirection: 'row', marginBottom: 10}}>
+      <View>
+        <View style={{display: 'flex', flexDirection: 'row'}}>
           <TouchableOpacity
             style={Styles.checkBox}
             activeOpacity={0.8}
@@ -75,7 +78,7 @@ const IncomeExpense = props => {
           value={newIncome}
           style={Styles.incomeTextInput}
           placeholder={'New Income'}
-          placeholderTextColor={'gray'}
+          placeholderTextColor={'#cccbc8'}
           onChangeText={text => setNewIncome(text)}
         />
       </View>
@@ -85,7 +88,10 @@ const IncomeExpense = props => {
 
 const Styles = StyleSheet.create({
   formContainer: {
+    flex: 1,
     padding: 5,
+    display: 'flex',
+    justifyContent: 'space-evenly',
   },
   incomeTextInput: {
     marginTop: 8,
@@ -94,7 +100,11 @@ const Styles = StyleSheet.create({
     lineHeight: 25,
     paddingHorizontal: 8,
     paddingVertical: 12,
-    backgroundColor: 'rgba(151, 151, 151, 0.25)',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#c4c4c4',
+    fontFamily: 'WorkSans-Medium',
+    color: '#1c5a23',
   },
   checkBox: {
     width: 20,

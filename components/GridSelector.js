@@ -7,6 +7,7 @@ const GridItem = props => {
 
   return (
     <TouchableOpacity
+      key={props.index}
       style={[
         Styles.gridItem,
         props.currentValue === props.title && {backgroundColor: '#1c5a23'},
@@ -35,8 +36,9 @@ const GridSelector = props => {
 
   return (
     <View style={Styles.gridItemsContainer}>
-      {props.data.map(item => (
+      {props.data.map((item, index) => (
         <GridItem
+          index={index}
           title={item}
           currentValue={selectedValue}
           onPress={setSelectedValue}
@@ -54,6 +56,7 @@ const Styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignContent: 'center',
+    paddingVertical: 10,
   },
   gridItem: {
     height: 40,

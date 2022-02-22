@@ -109,6 +109,11 @@ export default App = () => {
                 onIncomeComponentHide={setIsIncomeModalVisible}
                 onPresentBottomSheetModal={handlePresentModalPress}
               />
+              <View
+                style={{
+                  height: 1,
+                  backgroundColor: '#c9c9c9',
+                }}></View>
               {isSectionList ? <TransactionSectionList /> : <TransactionList />}
               <AddTransaction />
               {/* Modal */}
@@ -117,7 +122,11 @@ export default App = () => {
                 index={1}
                 snapPoints={snapPoints}
                 onChange={handleSheetChanges}
-                backgroundStyle={{backgroundColor: '#f2f2f2'}}>
+                backgroundStyle={{
+                  backgroundColor: '#f2f2f2',
+                  borderWidth: 1,
+                  borderColor: '#c4c4c4',
+                }}>
                 <View style={Styles.contentContainer}>
                   {/* Form */}
 
@@ -154,7 +163,6 @@ const Styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 10,
     flexDirection: 'column',
-    justifyContent: 'space-evenly',
   },
   contentContainer: {
     flex: 1,

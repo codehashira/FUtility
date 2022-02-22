@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ToastAndroid,
+} from 'react-native';
 import {useSelector} from 'react-redux';
 
 const DateFilter = props => {
@@ -29,7 +35,10 @@ const DateFilter = props => {
           style={Styles.monthCheckBox}
           activeOpacity={0.8}
           onPress={() => {
-            if (!yearChecked) return;
+            if (!yearChecked) {
+              ToastAndroid.show('Year Should Be Checked!', ToastAndroid.SHORT);
+              return;
+            }
             props.onListTypeChange(monthChecked);
             setMonthChecked(!monthChecked);
           }}>
@@ -61,7 +70,10 @@ const DateFilter = props => {
           style={Styles.monthCheckBox}
           activeOpacity={0.8}
           onPress={() => {
-            if (monthChecked) return;
+            if (monthChecked) {
+              ToastAndroid.show('Uncheck Month First!', ToastAndroid.SHORT);
+              return;
+            }
             setYearChecked(!yearChecked);
             props.onListTypeChange(!yearChecked);
           }}>
